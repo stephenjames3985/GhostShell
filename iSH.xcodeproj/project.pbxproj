@@ -18,6 +18,19 @@
 			name = "iSH pre";
 			productName = "iSH pre";
 		};
+		DCC96A372E2D8EF000F967A2 /* GhostShellBuild */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = DCC96A382E2D8EF000F967A2 /* Build configuration list for PBXAggregateTarget "GhostShellBuild" */;
+			buildPhases = (
+				DCC96A3D2E2D8F9400F967A2 /* Run Script */,
+			);
+			dependencies = (
+			);
+			name = GhostShellBuild;
+			packageProductDependencies = (
+			);
+			productName = GhostShellBuild;
+		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
@@ -1683,6 +1696,9 @@
 					BBEF191D26806364001225BD = {
 						CreatedOnToolsVersion = 13.0;
 					};
+					DCC96A372E2D8EF000F967A2 = {
+						CreatedOnToolsVersion = 16.4;
+					};
 				};
 			};
 			buildConfigurationList = BB792B491F96D8E000FFB7A4 /* Build configuration list for PBXProject "iSH" */;
@@ -1720,6 +1736,7 @@
 				BB4A922324ED9402002F5A96 /* iSH pre */,
 				497F6CE3254E5E4C00C82F46 /* MakeXcodeAutoCompleteWork */,
 				497F6D46254E605F00C82F46 /* ish */,
+				DCC96A372E2D8EF000F967A2 /* GhostShellBuild */,
 			);
 		};
 /* End PBXProject section */
@@ -2022,6 +2039,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "mkdir -p \"$CONFIGURATION_BUILD_DIR\"\nln -sf \"$MESON_BUILD_DIR/$PRODUCT_NAME.a\" \"$CONFIGURATION_BUILD_DIR\"\n";
+		};
+		DCC96A3D2E2D8F9400F967A2 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "#!/bin/bash\n# this will build GhostShell (meson + Ninja)\nset -e\n\n# Go to your GhostShell root directory\ncd \"${SRCROOT}\"\n\n# Set up the correct build environment\nexport PATH=\"/opt/homebrew/bin:$PATH\"\nexport PKG_CONFIG_PATH=\"/opt/homebrew/lib/pkgconfig\"\nexport LDFLAGS=\"-L/opt/homebrew/lib\"\nexport CPPFLAGS=\"-I/opt/homebrew/include\"\n\n# Build with Meson and Ninja\nif [ ! -d builddir ]; then\n  meson setup builddir\nfi\n\nmeson configure builddir\nninja -C builddir\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2486,6 +2521,7 @@
 			baseConfigurationReference = BB0B85A42586F1CB00208600 /* ProjectDebug.xcconfig */;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 782;
+				DEVELOPMENT_TEAM = RabbitRanchDev;
 			};
 			name = "Debug-ApplePleaseFixFB19282108";
 		};
@@ -2494,6 +2530,7 @@
 			baseConfigurationReference = BB0B85A52586F1E100208600 /* ProjectRelease.xcconfig */;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 782;
+				DEVELOPMENT_TEAM = RabbitRanchDev;
 			};
 			name = Release;
 		};
@@ -2520,6 +2557,7 @@
 			baseConfigurationReference = BB28C7532689522C00BDC834 /* ProjectDebugLinux.xcconfig */;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 782;
+				DEVELOPMENT_TEAM = RabbitRanchDev;
 			};
 			name = DebugLinux;
 		};
@@ -2543,6 +2581,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BBEF192C26806546001225BD /* AppLib.xcconfig */;
 			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 			};
 			name = DebugLinux;
 		};
@@ -2552,6 +2592,8 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = app/FileProvider/iSHFileProvider.entitlements;
 				INFOPLIST_FILE = app/FileProvider/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER).FileProvider";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2629,6 +2671,8 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = app/FileProvider/iSHFileProvider.entitlements;
 				INFOPLIST_FILE = app/FileProvider/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER).FileProvider";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2641,6 +2685,8 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = app/FileProvider/iSHFileProvider.entitlements;
 				INFOPLIST_FILE = app/FileProvider/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER).FileProvider";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2739,6 +2785,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BBEF192C26806546001225BD /* AppLib.xcconfig */;
 			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 			};
 			name = "Debug-ApplePleaseFixFB19282108";
 		};
@@ -2746,6 +2794,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BBEF192C26806546001225BD /* AppLib.xcconfig */;
 			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 			};
 			name = Release;
 		};
@@ -2768,6 +2818,7 @@
 			baseConfigurationReference = BB28C7522689522700BDC834 /* ProjectReleaseLinux.xcconfig */;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 782;
+				DEVELOPMENT_TEAM = RabbitRanchDev;
 			};
 			name = ReleaseLinux;
 		};
@@ -2791,6 +2842,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BBEF192C26806546001225BD /* AppLib.xcconfig */;
 			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 			};
 			name = ReleaseLinux;
 		};
@@ -2800,6 +2853,8 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = app/FileProvider/iSHFileProvider.entitlements;
 				INFOPLIST_FILE = app/FileProvider/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER).FileProvider";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2883,6 +2938,42 @@
 			buildSettings = {
 			};
 			name = Release;
+		};
+		DCC96A392E2D8EF000F967A2 /* Debug-ApplePleaseFixFB19282108 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A229T9E629;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Debug-ApplePleaseFixFB19282108";
+		};
+		DCC96A3A2E2D8EF000F967A2 /* DebugLinux */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A229T9E629;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = DebugLinux;
+		};
+		DCC96A3B2E2D8EF000F967A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A229T9E629;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		DCC96A3C2E2D8EF000F967A2 /* ReleaseLinux */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A229T9E629;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = ReleaseLinux;
 		};
 /* End XCBuildConfiguration section */
 
@@ -3070,6 +3161,17 @@
 				BB7F620E2688EAB5003C0220 /* DebugLinux */,
 				BBFB2C5A2590257E00545EAB /* Release */,
 				BBEF19B426806D1F001225BD /* ReleaseLinux */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DCC96A382E2D8EF000F967A2 /* Build configuration list for PBXAggregateTarget "GhostShellBuild" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCC96A392E2D8EF000F967A2 /* Debug-ApplePleaseFixFB19282108 */,
+				DCC96A3A2E2D8EF000F967A2 /* DebugLinux */,
+				DCC96A3B2E2D8EF000F967A2 /* Release */,
+				DCC96A3C2E2D8EF000F967A2 /* ReleaseLinux */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
